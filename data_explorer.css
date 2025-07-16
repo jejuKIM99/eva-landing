@@ -1,0 +1,324 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure it takes full viewport height */
+}
+
+.data-explorer-main-content {
+    display: flex;
+    flex-grow: 1; /* Allow it to take available vertical space */
+    padding: 20px;
+    gap: 20px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+}
+
+.data-explorer-main-content::-webkit-scrollbar{
+  display:none;
+}
+
+
+.sidebar {
+    width: 250px; /* Fixed width for sidebar */
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .panel-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.sidebar-menu-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 153, 0, 0.1);
+    transition: background-color 0.2s;
+}
+
+.sidebar-menu-item:hover {
+    background-color: rgba(255, 153, 0, 0.2);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 153, 0, 0.3);
+    text-align: center;
+}
+
+.content-display {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 400px; /* Keep min-width for desktop to prevent squishing */
+}
+
+/* --- [수정됨] 로딩 중과 완료 시 콘텐츠 표시를 제어하기 위한 스타일 --- */
+#loading-container, #content-area {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#content-area {
+    display: block; /* 기본값 */
+}
+
+/* --- [추가됨] 로딩 인터렉션 스타일 --- */
+#loading-container {
+    display: none; /* JS로 제어 */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.loading-bar-wrapper {
+    width: 80%;
+    max-width: 400px;
+    height: 20px;
+    border: 1px solid var(--classic-border);
+    margin-bottom: 15px;
+    padding: 2px;
+}
+
+.loading-bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--classic-highlight);
+    transition: width 0.1s linear;
+}
+
+#loading-text {
+    color: var(--classic-text);
+    font-family: 'Share Tech Mono', monospace;
+}
+/* --- 로딩 스타일 끝 --- */
+
+
+.content-display .panel-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Keep scrolling for content area if content is long */
+    padding: 0;
+}
+
+
+/* --- [추가됨] 본문 이미지 컨테이너 스타일 --- */
+.content-image-container {
+    width: 50%; /* 컨텐츠 영역에 맞게 너비 조정 */
+    height: 360px; /* 적절한 높이 설정 */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 5;
+    margin: 0 auto 0.4rem auto; /* 상단 중앙 정렬 및 하단 여백 */
+
+    /* 아날로그 TV 화면 왜곡 효과 */
+    border-radius: 50% / 10%; /* 타원형 모서리 */
+    transform: scale(1, 0.8) rotateX(5deg); /* Y축 압축 및 기울임 */
+    filter: blur(0.5px) contrast(1.1) brightness(1.2); /* 블러, 대비, 밝기 조절 */
+    border: 1px solid var(--classic-border);
+}
+
+.content-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.content-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 차도록 설정 */
+    display: block;
+    filter: saturate(1.5) hue-rotate(10deg); /* 이미지 색상 효과 */
+}
+/* --- 이미지 스타일 끝 --- */
+
+
+.virtual-keyboard-container {
+    margin-top: 20px;
+    padding: 15px;
+    flex-shrink: 0; /* Prevent shrinking */
+    overflow-y: visible; /* Prevent scrollbar on virtual keyboard container itself */
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--classic-bg);
+    border: 1px solid var(--classic-border);
+    color: var(--classic-text);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    outline: none; /* Remove default focus outline */
+}
+
+.autocomplete-suggestions {
+    background-color: var(--classic-bg);
+    border: 1px solid var(--classic-border);
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.autocomplete-suggestion {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 153, 0, 0.1);
+    transition: background-color 0.2s;
+    color: var(--classic-text);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.autocomplete-suggestion:hover {
+    background-color: rgba(255, 153, 0, 0.3);
+}
+
+.keyboard-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.key-button {
+    background: var(--classic-bg);
+    border: 1px solid var(--classic-border);
+    color: var(--classic-text);
+    padding: 10px 15px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    flex-grow: 1;
+    text-transform: uppercase;
+}
+
+footer .panel-content{
+    overflow: unset;
+}
+
+.key-button:hover {
+    background: var(--classic-highlight);
+    color: #000;
+}
+
+.key-button:active {
+    background: var(--classic-highlight-dark);
+    border-color: var(--classic-highlight-dark);
+}
+
+.key-button:last-child:not(:first-child) {
+    margin-right: 0;
+}
+
+.search-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--classic-highlight);
+    color: #000;
+    border: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-button:hover {
+    background-color: var(--classic-highlight-dark);
+}
+
+.sidebar-toggle-button {
+    display: none; /* Hidden by default, shown on mobile */
+    background: none;
+    border: 1px solid var(--classic-border);
+    color: var(--classic-text);
+    font-size: 1.5em;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto; /* Push to the right */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .data-explorer-main-content {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+        flex-grow: 1; /* Ensure it takes available vertical space */
+    }
+
+    .sidebar {
+        width: 100%;
+        max-height: 200px; /* Limit height to prevent pushing content down */
+        overflow-y: auto; /* Enable scrolling for sidebar if content overflows */
+        display: none; /* Hidden by default on mobile */
+    }
+
+    .sidebar.active {
+        display: flex; /* Show when active */
+    }
+
+    .content-display {
+        width: 100%;
+        min-width: unset;
+        flex-grow: 1; /* Ensure it takes available vertical space */
+    }
+
+    .content-display .panel-content {
+        overflow-y: auto; /* Content area itself can scroll */
+    }
+
+    .virtual-keyboard-container {
+        padding: 5px; /* Reduced padding */
+    }
+
+    .keyboard-rows {
+        gap: 2px; /* Further reduce gap between keyboard rows */
+    }
+
+    .key-button {
+        padding: 4px 6px; /* Further reduce padding for keys */
+        font-size: 0.7em; /* Further reduce font size for keys */
+    }
+    
+    .content-image-container {
+        width: 95%;
+        height: 150px;
+    }
+
+    .sidebar-toggle-button {
+        display: block; /* Show on mobile */
+    }
+
+    .gui-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Space out items */
+    }
+}

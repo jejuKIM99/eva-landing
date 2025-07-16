@@ -1,0 +1,288 @@
+/* 기본 스타일 초기화 */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'VT323', monospace;
+    color: #E0E0E0;
+    user-select: none;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* --- 오버레이 효과 --- */
+.scanline-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.25) 50%);
+    background-size: 100% 4px;
+    animation: scan-anim 4s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+@keyframes scan-anim {
+    from { background-position: 0 0; }
+    to { background-position: 0 -100px; }
+}
+
+.noise-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('./img/texture/noise.jpg'); /* 이 경로는 나중에 수정될 수 있습니다. */
+    opacity: 0.6;
+    pointer-events: none;
+    animation: noise-animation 0.2s steps(1) infinite;
+    z-index: 9;
+}
+@keyframes noise-animation {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-5px, -5px); }
+}
+
+/* --- GUI 공통 스타일 --- */
+:root {
+    --classic-highlight: #ff9900; /* 주황색(Amber) 하이라이트 */
+    --classic-highlight-dark: #cc7a00;
+    --classic-bg: rgba(20, 15, 5, 0.7);
+    --classic-border: rgba(255, 153, 0, 0.4);
+    --classic-text: #E0E0E0;
+}
+
+.gui-header, .gui-footer {
+    flex-shrink: 0;
+    padding: 0.3rem 1rem;
+    background: var(--classic-bg);
+    border: 1px solid var(--classic-border);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+}
+
+.gui-header {
+    margin-bottom: 1rem;
+}
+
+.gui-footer {
+    margin-top: 1rem;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: minmax(auto, 300px) 1fr minmax(auto, 300px);
+    gap: 1rem;
+    padding: 1rem 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.left-panel, .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.gui-panel {
+    background: var(--classic-bg);
+    border: 1px solid var(--classic-border);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--classic-highlight);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.header-deco-box {
+    width: 12px;
+    height: 12px;
+    background: var(--classic-highlight);
+}
+
+.panel-content {
+    line-height: 1.8;
+    font-size: min(18px, 1.6vw);
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.panel-content::-webkit-scrollbar { display: none; }
+.panel-content { scrollbar-width: none; }
+
+.log-entry {
+    margin: 0 0 0.5rem 0;
+}
+
+/* --- 중앙 콘텐츠 --- */
+.center-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    position: relative;
+}
+
+#three-container {
+    width: 64%; /* 요청에 따라 width를 64%로 조정 */
+    height: 70%; /* GIF 이미지가 차지할 공간 */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* 왜곡 효과를 위해 추가 */
+    z-index: 5;
+    /* 아날로그 TV 화면 왜곡 효과 */
+    border-radius: 50% / 10%; /* 타원형 모서리 */
+    /* box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* 초록색 그림자 제거 */
+    transform: scale(1, 0.8) rotateX(5deg); /* Y축으로 압축하고 X축으로 살짝 기울여 볼록한 느낌 */
+    filter: blur(0.5px) contrast(1.1) brightness(1.2); /* 약간의 블러, 대비, 밝기 조절 */
+    transition: all 0.3s ease-in-out; /* 부드러운 전환 효과 */
+}
+
+#three-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.eva-gif {
+    width: 100%; /* 이미지가 컨테이너에 꽉 차도록 수정 */
+    height: 100%; /* 이미지가 컨테이너에 꽉 차도록 수정 */
+    object-fit: fill; /* 이미지가 컨테이너에 꽉 차도록 수정 */
+    display: block;
+    filter: saturate(1.5) hue-rotate(10deg); /* GIF 이미지에 약간의 색상 효과 */
+}
+
+
+.main-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    margin: 1rem 0 0.5rem 0;
+    text-align: center;
+    z-index: 6;
+}
+
+.subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.5rem;
+    color: var(--classic-highlight);
+    text-shadow: 0 0 8px var(--classic-highlight);
+    margin-bottom: 2rem;
+    text-align: center;
+    z-index: 6;
+}
+
+.action-button {
+    background: var(--classic-bg);
+    border: 2px solid var(--classic-highlight);
+    color: var(--classic-highlight);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transition: transform 1.4s ease, opacity 1.4s ease;
+    letter-spacing: 2px;
+    z-index: 6; /* 버튼이 항상 보이도록 z-index 조정 */
+    transform: translate(0px, 50px);
+    opacity: 0;
+}
+
+.action-button:hover {
+    background: var(--classic-highlight);
+    color: #000;
+    box-shadow: 0 0 20px var(--classic-highlight);
+}
+
+/* --- 텍스트 색상 및 효과 --- */
+.text-green { color: #00ff00; text-shadow: 0 0 5px #00ff00; }
+.text-orange { color: #ff9900; text-shadow: 0 0 5px #ff9900; }
+.text-red { color: #ff0000; text-shadow: 0 0 5px #ff0000; }
+.flicker { animation: flicker-effect 1.5s infinite; }
+@keyframes flicker-effect {
+    50% { opacity: 0.6; }
+}
+
+/* --- 반응형 디자인 --- */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+    }
+    .left-panel { order: 2; }
+    .center-panel { order: 1; }
+    .right-panel { order: 3; }
+
+    .main-title {
+        font-size: 2.5rem;
+    }
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    .action-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+    .gui-header, .gui-footer {
+        font-size: 0.9rem;
+        padding: 0.2rem 0.5rem;
+    }
+    .panel-header {
+        font-size: 1rem;
+    }
+    .panel-content {
+        font-size: 0.9rem;
+    }
+    .main-title {
+        font-size: 2rem;
+    }
+    .subtitle {
+        font-size: 1rem;
+    }
+    .action-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    #three-container {
+        height: 60%;
+    }
+}

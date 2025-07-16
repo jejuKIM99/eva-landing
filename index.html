@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON GENESIS EVANGELION</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="scanline-overlay"></div>
+        <div class="noise-overlay"></div>
+
+        <header class="gui-header">
+            <span class="header-text">NERV DATA LOG // INITIATE</span>
+            <span class="header-time" id="current-time"></span>
+        </header>
+
+        <main class="main-content">
+            <div class="left-panel gui-panel">
+                <div class="panel-header">
+                    <div class="header-deco-box"></div>
+                    <span>SYSTEM STATUS</span>
+                </div>
+                <div class="panel-content">
+                    <p class="log-entry text-green">[OK] Primary Systems Online</p>
+                    <p class="log-entry text-green">[OK] AT Field Resonance Stable</p>
+                    <p class="log-entry text-orange">[WARNING] Angelic Presence Detected: UNKNOWN</p>
+                    <p class="log-entry text-red">[ALERT] Human Instrumentality Project: PENDING</p>
+                    <p class="log-entry text-green">[OK] LCL Production: Optimal</p>
+                </div>
+            </div>
+
+            <div class="center-panel">
+                <div id="three-container">
+                    <!-- 3D 모델 대신 GIF 이미지를 여기에 표시합니다. -->
+                    <img src="img/75A.gif" alt="EVA Unit 01" class="eva-gif">
+                </div>
+                <h1 class="main-title">NEON GENESIS EVANGELION</h1>
+                <p class="subtitle">EVANGELION FAN PAGE PROJECT</p>
+                <button class="action-button" id="explore-button">EXPLORE DATA</button>
+            </div>
+
+            <div class="right-panel gui-panel">
+                <div class="panel-header">
+                    <div class="header-deco-box"></div>
+                    <span>MISSION LOG</span>
+                </div>
+                <div class="panel-content">
+                    <p class="log-entry">2015/09/13 - Second Impact Confirmed</p>
+                    <p class="log-entry">2015/09/14 - NERV HQ Established</p>
+                    <p class="log-entry">2015/12/25 - Unit-01 Activation Test</p>
+                    <p class="log-entry">2016/02/14 - Angel Attack: Sachiel</p>
+                    <p class="log-entry">2016/04/01 - Unit-02 Deployment</p>
+                    <p class="log-entry">2016/06/22 - Angel Attack: Ramiel</p>
+                    <p class="log-entry">2016/08/08 - Angel Attack: Leliel</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="gui-footer">
+            <span class="footer-text">© NERV. ALL RIGHTS RESERVED.</span>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
