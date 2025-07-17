@@ -295,16 +295,17 @@ footer .panel-content{
     }
 
     .virtual-keyboard-container {
-        padding: 5px; /* Reduced padding */
+        padding: 10px 5px 5px 5px; /* Reduced padding */
+        margin-top: auto; /* ★★ 변경: 푸터를 하단으로 밀어냄 */
     }
 
     .keyboard-rows {
-        gap: 2px; /* Further reduce gap between keyboard rows */
+        gap: 5px; /* ★★ 변경: 키보드 행 간격 조정 */
     }
 
     .key-button {
-        padding: 4px 6px; /* Further reduce padding for keys */
-        font-size: 0.7em; /* Further reduce font size for keys */
+        padding: 8px; /* ★★ 변경: 키 버튼 패딩 증가 */
+        font-size: 1em; /* ★★ 변경: 키 버튼 폰트 크기 증가 */
     }
     
     .content-image-container {

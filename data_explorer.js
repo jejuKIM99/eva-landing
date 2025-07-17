@@ -347,10 +347,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    searchBar.focus();
-    searchBar.addEventListener('blur', () => {
-        setTimeout(() => searchBar.focus(), 0);
-    });
+    // ★★ 변경: 불필요한 자동 포커스 로직 제거
+    // searchBar.focus();
+    // searchBar.addEventListener('blur', () => {
+    //     setTimeout(() => searchBar.focus(), 0);
+    // });
 
     sidebarToggle.addEventListener('click', () => {
         sidebar.classList.toggle('active');
