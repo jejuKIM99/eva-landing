@@ -295,7 +295,7 @@ footer .panel-content{
     }
 
     .virtual-keyboard-container {
-        padding: 10px 5px 5px 5px; /* Reduced padding */
+        padding: 10px 5px 25px 5px; /* Reduced padding */
         margin-top: auto; /* ★★ 변경: 푸터를 하단으로 밀어냄 */
     }
 
